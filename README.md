@@ -1,7 +1,8 @@
 ## OpenCL Practice Repository
 
 * Using OpenCL CPP, the following examples are implemented
--[x] Vector addition
+
+-[x] Vector addition  
 -[ ] Regression  
 -[ ] Convolution
 
@@ -39,7 +40,27 @@ nvcc --version
 ```
 
 ### Running OpenCL CPP code
-* On Ubuntu
+- On Ubuntu 22.04
+* On terminal 1
+```commandline
+lttng-sessiond daemonize
+lttng create vadd_session
+lttng enable-event --userspace vadd:*
+lttng start
 ```
-g++ vector_add.cpp -lOpenCL
+* On terminal 2
+```commandline
+cd ~
+git clone https://github.com/acceleration-robotics/opencl-practice.git
+cd opencl-practice/vector_add/cpu_vadd_tracing
+make all
+./cpu_vadd
+cd ../gpu_vadd_tracing
+make all
+./gpu_vadd
+```
+* On terminal 1 again
+```commandline
+lttng stop
+babeltrace ~/lttng-traces/vadd_session*
 ```
