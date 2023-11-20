@@ -9,7 +9,8 @@ IFLAGS = -I$(IDIRS)
 OUTIMGS = ./output_images/*
 
 PNG_SOURCE = lodepng
-APP_SOURCE = read_image
+# APP_SOURCE = read_image
+APP_SOURCE = resize_image
 
 all: $(PNG_SOURCE) $(APP_SOURCE)
 	 $(CXX) -o $(APP_SOURCE) $(APP_SOURCE).o $(PNG_SOURCE).o $(CXXFLAGS)
