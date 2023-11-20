@@ -8,7 +8,7 @@
 #define GetCurrentDir getcwd
 #endif
 #include "lodepng.h"
-#include <CL/opencl.hpp>
+#include <CL/cl.hpp>
 #include <fstream>
 #include <iostream>
 
