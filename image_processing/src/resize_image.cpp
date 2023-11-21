@@ -7,6 +7,7 @@ int main(int argc, char *argv[]) {
     int scaling_factor;
     std::cout << "Enter scaling factor : \n";
     std::cin >> scaling_factor;
+    auto start = std::chrono::high_resolution_clock::now();
     std::vector<cl::Platform> platforms;
 	cl::Platform::get(&platforms);
 	if (platforms.size() == 0)
@@ -101,15 +102,17 @@ int main(int argc, char *argv[]) {
     
     // Copy data over from temp array to output png of same name
     std::copy(&tmp[0], &tmp[scaled_width*scaled_height*4], std::back_inserter(output_image.pixels));
-    for (int i=0; i<width*height*4; i++) {
-        std::cout << (int)tmp[i] << "\n";
-    }
+    // for (int i=0; i<width*height*4; i++) {
+    //     std::cout << (int)tmp[i] << "\n";
+    // }
     // Write output image to file
     std::cout << output_image.SaveImage(outfile) << std::endl;;
     // Free image resources
     output_image.FreeImage();
     // Free temp array
     delete[] tmp;
-    
+    auto stop = std::chrono::high_resolution_clock::now();
+    auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
+    std::cout << "Program Execution Time (ms) : " << duration.count() << std::endl;
     return 0;
 }

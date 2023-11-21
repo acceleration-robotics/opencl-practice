@@ -10,17 +10,24 @@ OUTIMGS = ./output_images/*
 
 PNG_SOURCE = lodepng
 # APP_SOURCE = read_image
-APP_SOURCE = resize_image
+# APP_SOURCE = resize_image
+# APP_SOURCE = cpu_resize_image
+CPU_SOURCE = cpu_resize_image
+OCL_SOURCE = resize_image
 
-all: $(PNG_SOURCE) $(APP_SOURCE)
-	 $(CXX) -o $(APP_SOURCE) $(APP_SOURCE).o $(PNG_SOURCE).o $(CXXFLAGS)
+all: $(PNG_SOURCE) $(CPU_SOURCE) $(OCL_SOURCE)
+	 $(CXX) -o $(CPU_SOURCE) $(CPU_SOURCE).o $(PNG_SOURCE).o $(CXXFLAGS)
+	 $(CXX) -o $(OCL_SOURCE) $(OCL_SOURCE).o $(PNG_SOURCE).o $(CXXFLAGS)
 
 $(PNG_SOURCE) : src/$(PNG_SOURCE).cpp
 			$(CXX) $(IFLAGS) -o $(PNG_SOURCE).o -c src/$(PNG_SOURCE).cpp
 
-$(APP_SOURCE) : src/$(APP_SOURCE).cpp
-			$(CXX) $(IFLAGS) -o $(APP_SOURCE).o -c src/$(APP_SOURCE).cpp
+$(CPU_SOURCE) : src/$(CPU_SOURCE).cpp
+			$(CXX) $(IFLAGS) -o $(CPU_SOURCE).o -c src/$(CPU_SOURCE).cpp
+
+$(OCL_SOURCE) : src/$(OCL_SOURCE).cpp
+			$(CXX) $(IFLAGS) -o $(OCL_SOURCE).o -c src/$(OCL_SOURCE).cpp
 
 clean:	
-		$(RM) $(PNG_SOURCE).o $(APP_SOURCE).o $(APP_SOURCE) $(OUTIMGS)
+		$(RM) $(PNG_SOURCE).o $(OCL_SOURCE).o $(OCL_SOURCE) $(CPU_SOURCE).o $(CPU_SOURCE) $(OUTIMGS)
 

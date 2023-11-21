@@ -10,7 +10,7 @@ __kernel void resize(__read_only image2d_t in,
 
     for(int i=0; i<scaling_factor; i++) {
         for(int j=0; j<scaling_factor; j++) {
-            pixel = read_imageui(in, smp, (float2)(inpos + (float2)(i/scaling_factor, i/scaling_factor)));
+            pixel = read_imageui(in, smp, (float2)(inpos + (float2)(i/scaling_factor, j/scaling_factor)));
             write_imageui(out, outpos + (int2)(i, j), pixel);
         }
     }
