@@ -93,12 +93,6 @@ int main(int argc, char *argv[]) {
     // Output image
     ImageMat output_image;
     output_image.CreateImage(scaled_width, scaled_height);
-    // Temporary buffer to store image data : has to be on the heap so kernel can access it
-    // auto tmp = new unsigned char[scaled_width * scaled_height * 4];
-    // // Blocking copy call
-    // error = queue.enqueueReadImage(o_img, CL_TRUE, origin, size, 0, 0, tmp);
-    // // assert(error == CL_SUCCESS);
-    // std::cout << "Img read : " << error << std::endl;
 
     // Mapping image
     unsigned char * tmp = static_cast<unsigned char *>(queue.enqueueMapImage(o_img, CL_TRUE, CL_MAP_WRITE, origin, size, 0, 0, NULL, NULL, &error));
@@ -115,10 +109,10 @@ int main(int argc, char *argv[]) {
     std::cout << output_image.SaveImage(outfile) << std::endl;;
     // // Free image resources
     output_image.FreeImage();
-    // // Free temp array
-    // delete[] tmp;
+    
     auto stop = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
     std::cout << "Program Execution Time (ms) : " << duration.count() << std::endl;
+    
     return 0;
 }
