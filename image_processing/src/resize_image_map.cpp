@@ -39,7 +39,7 @@ int main(int argc, char *argv[]) {
     const unsigned int scaled_width = int(width*scaling_factor), scaled_height = int(height*scaling_factor);
 
     // OpenCL Input Image Buffer : READ_ONLY image
-    const cl::ImageFormat format(CL_RGBA, CL_UNSIGNED_INT8);
+    const cl::ImageFormat format(CL_R, CL_FLOAT);
     cl_int error;
     cl::Image2D i_img(context, CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, format, width, height, 0, &input_img.pixels[0], &error);
     assert(error == CL_SUCCESS);
