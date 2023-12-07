@@ -12,11 +12,12 @@ PNG_SOURCE = lodepng
 # APP_SOURCE = read_image
 # APP_SOURCE = resize_image
 # APP_SOURCE = cpu_resize_image
-CPU_SOURCE = cpu_resize_image
+# CPU_SOURCE = cpu_resize_image
+CPU_SOURCE = cpu_filter_image
 # OCL_SOURCE = resize_image
 # OCL_SOURCE = resize_image_map
-# OCL_SOURCE = filter_image
-OCL_SOURCE = read_image_map
+OCL_SOURCE = filter_image
+# OCL_SOURCE = read_image_map
 
 all: $(PNG_SOURCE) $(CPU_SOURCE) $(OCL_SOURCE)
 	 $(CXX) -o $(CPU_SOURCE) $(CPU_SOURCE).o $(PNG_SOURCE).o $(CXXFLAGS)
