@@ -1,0 +1,3 @@
+[submodule "ros2-opencl/rosbag/rosbags"]
+	path = ros2-opencl/rosbag/rosbags
+	url = git@github.com:robotperf/rosbags.git
