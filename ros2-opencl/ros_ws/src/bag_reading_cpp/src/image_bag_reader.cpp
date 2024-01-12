@@ -40,7 +40,7 @@ void ImageReaderNode::processImage(const sensor_msgs::msg::Image::SharedPtr msg)
     RCLCPP_INFO(get_logger(), "Received image with width: %d, height: %d", msg->width, msg->height);
     width = msg->width;
     height = msg->height;
-    const cl::ImageFormat format(CL_BGRA, CL_UNORM_INT8);
+    const cl::ImageFormat format(CL_BGRA, CL_UNSIGNED_INT8);
     // Decode compressed image using OpenCV
     cv::Mat image = cv_bridge::toCvCopy(msg, "rgba8")->image;
     // cv::Mat output_image(image.size(), image.type());
@@ -139,7 +139,7 @@ void ImageReaderNode::processImage(const sensor_msgs::msg::Image::SharedPtr msg)
     assert(error == CL_SUCCESS);
 
     // Save the image using OpenCV
-    std::string filename = "/home/user/DEVELOPMENT/ros_ws/saved_images/image_" + std::to_string(image_count_) + ".png";
+    std::string filename = "/root/DEVELOPMENT/opencl-test-codes/ros2-opencl/ros_ws/saved_images/image_" + std::to_string(image_count_) + ".png";
     cv::imwrite(filename, output_image);
     image_count_++;
 }
