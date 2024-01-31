@@ -13,6 +13,17 @@
 #include <chrono>
 #include <cmath>
 
+cl_ulong get_time(cl::Event &event, int c) {
+    if (c == 0) {
+        return event.getProfilingInfo<CL_PROFILING_COMMAND_START>() * 0.001;
+    } else if (c == 1) {
+        return event.getProfilingInfo<CL_PROFILING_COMMAND_END>() * 0.001;
+    } else if (c == 2) {
+        return (event.getProfilingInfo<CL_PROFILING_COMMAND_END>() - event.getProfilingInfo<CL_PROFILING_COMMAND_START>()) * 0.001;
+    }
+    return 0;
+}
+
 std::string get_current_dir() {
     char buff[FILENAME_MAX]; //create string buffer to hold path
     GetCurrentDir( buff, FILENAME_MAX );
