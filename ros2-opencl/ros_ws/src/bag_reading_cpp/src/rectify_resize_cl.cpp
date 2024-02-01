@@ -90,15 +90,15 @@ void CLImageProc::processImage(const sensor_msgs::msg::Image::SharedPtr msg)
     // // Synchronization events
     cl::Event input_event, first_map, output_event, krnl1_event, krnl2_event;
     // Map host input buffer to pinned memory on the host
-    cl_uchar *pinned_host_input = (cl_uchar *)r_queue.enqueueMapBuffer(host_input_cl, CL_TRUE, CL_MAP_WRITE, 0,
-                                                                       buffer_size, NULL, &first_map, &error);
-    first_map.wait();
+    cl_uchar *pinned_host_input = (cl_uchar *)r_queue.enqueueMapBuffer(host_input_cl, CL_FALSE, CL_MAP_WRITE_INVALIDATE_REGION, 0,
+                                                                       buffer_size, NULL, &input_event, &error);
+    // first_map.wait();
     // Populate pinned host input
     std::memcpy(pinned_host_input, image.data, buffer_size);
 
     // Update mapped buffer with image data
-    error = w_queue.enqueueUnmapMemObject(host_input_cl, pinned_host_input, NULL, &input_event);
-    input_event.wait();
+    error = w_queue.enqueueUnmapMemObject(host_input_cl, pinned_host_input, NULL, NULL);
+    // input_event.wait();
     assert(pinned_host_input != NULL && error == CL_SUCCESS);
     std::cout << int(image.data[200]) << " : " << int(pinned_host_input[200]) << std::endl;
 
@@ -117,19 +117,20 @@ void CLImageProc::processImage(const sensor_msgs::msg::Image::SharedPtr msg)
     // Read buffer
     cl_uchar *pinned_host_output = (cl_uchar *)r_queue.enqueueMapBuffer(host_output_cl, CL_FALSE, CL_MAP_READ, 0,
                                                                         resize_buffer_size, NULL, &output_event, &error);
-    output_event.wait();
+    error = r_queue.enqueueUnmapMemObject(host_output_cl, pinned_host_output, NULL, NULL);
+    // output_event.wait();
     assert(pinned_host_output != NULL && error == CL_SUCCESS);
+    auto stop = std::chrono::high_resolution_clock::now();
+    auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
 
     std::cout << "Read buffer error : " << error << std::endl;
     assert(error == CL_SUCCESS);
     std::cout << "Read buffer : \n";
     cv::Mat output_image(resize_height, resize_width, CV_MAKETYPE(CV_8U, image.channels()), pinned_host_output);
-    auto stop = std::chrono::high_resolution_clock::now();
-    auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
 
-    std::string new_line = std::to_string(get_time(krnl1_event, 2)) + "," + std::to_string(get_time(krnl2_event, 2)) + "," +
-                           std::to_string(get_time(input_event, 2)) + "," + std::to_string(get_time(output_event, 2)) + ","+
-                           std::to_string(duration.count()) + ",\n";
+    std::string new_line = std::to_string(get_time(input_event, 2)) + "," + std::to_string(get_time(krnl1_event, 2)) + "," + 
+                           std::to_string(get_time(krnl2_event, 2)) + "," + 
+                           std::to_string(get_time(output_event, 2)) + ","+ std::to_string(duration.count()) + ",\n";
     std::ofstream myfile;
     myfile.open("/home/user/DEVELOPMENT/ros_ws/analyses/rectify_resize_cl.csv", std::ios::app);
     myfile << new_line;
