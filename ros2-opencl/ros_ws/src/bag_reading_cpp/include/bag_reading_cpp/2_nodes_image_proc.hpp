@@ -78,7 +78,7 @@ private:
     int height;
     int resize_width;
     int resize_height;
-    int scale = 2;
+    int scale = 4;
     std::string output_dir = get_current_dir() + "/output_images/";
 
     // Image rectification variables

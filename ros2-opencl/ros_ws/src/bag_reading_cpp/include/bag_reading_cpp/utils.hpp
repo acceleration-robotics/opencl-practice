@@ -1,4 +1,4 @@
-// #define CL_HPP_TARGET_OPENCL_VERSION 200
+#define CL_HPP_TARGET_OPENCL_VERSION 200
 #define CL_HPP_ENABLE_SIZE_T_COMPATIBILITY
 #ifdef WINDOWS
 #include <direct.h>
@@ -7,7 +7,7 @@
 #include <unistd.h>
 #define GetCurrentDir getcwd
 #endif
-#include <CL/cl2.hpp>
+#include <CL/cl.hpp>
 #include <fstream>
 #include <iostream>
 #include <chrono>

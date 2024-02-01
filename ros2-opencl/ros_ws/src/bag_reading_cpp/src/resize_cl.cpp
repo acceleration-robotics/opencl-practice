@@ -29,7 +29,7 @@ CLImageProc::CLImageProc(const std::string &bag_file_path)
     image_publisher_ = this->create_publisher<sensor_msgs::msg::Image>("/camera/image_raw", 10);
     info_publisher_ = this->create_publisher<sensor_msgs::msg::CameraInfo>("/camera/camera_info", 10);
     timer_ = this->create_wall_timer(
-        5ms, std::bind(&CLImageProc::timerCallback, this));
+        100ms, std::bind(&CLImageProc::timerCallback, this));
 
     // Open the bag file for reading with default options
     rosbag_reader_ = std::make_shared<rosbag2_cpp::readers::SequentialReader>();
@@ -62,24 +62,24 @@ void CLImageProc::processImage(const sensor_msgs::msg::Image::SharedPtr msg)
     cl::Buffer host_input_cl(context, CL_MEM_ALLOC_HOST_PTR | CL_MEM_READ_ONLY,
                              buffer_size, NULL, &error);
     assert(error == CL_SUCCESS);
-    cl::Buffer host_temp_cl(context, CL_MEM_READ_WRITE,
-                            buffer_size, NULL, &error);
-    assert(error == CL_SUCCESS);
+    // cl::Buffer host_temp_cl(context, CL_MEM_READ_WRITE,
+    //                         buffer_size, NULL, &error);
+    // assert(error == CL_SUCCESS);
     cl::Buffer host_output_cl(context, CL_MEM_ALLOC_HOST_PTR | CL_MEM_WRITE_ONLY,
                               resize_buffer_size, NULL, &error);
     assert(error == CL_SUCCESS);
 
-    cl::Buffer img_matrix(context, CL_MEM_READ_ONLY | CL_MEM_USE_HOST_PTR, sizeof(float) * 30, image_matrices, &error);
-    assert(error == CL_SUCCESS);
+    // cl::Buffer img_matrix(context, CL_MEM_READ_ONLY | CL_MEM_USE_HOST_PTR, sizeof(float) * 30, image_matrices, &error);
+    // assert(error == CL_SUCCESS);
 
     // Set kernel arguments
-    error = krnl_1.setArg(0, host_input_cl);
-    assert(error == CL_SUCCESS);
-    error = krnl_1.setArg(1, host_temp_cl);
-    assert(error == CL_SUCCESS);
-    error = krnl_1.setArg(2, img_matrix);
-    assert(error == CL_SUCCESS);
-    error = krnl_2.setArg(0, host_temp_cl);
+    // error = krnl_1.setArg(0, host_input_cl);
+    // assert(error == CL_SUCCESS);
+    // error = krnl_1.setArg(1, host_temp_cl);
+    // assert(error == CL_SUCCESS);
+    // error = krnl_1.setArg(2, img_matrix);
+    // assert(error == CL_SUCCESS);
+    error = krnl_2.setArg(0, host_input_cl);
     assert(error == CL_SUCCESS);
     error = krnl_2.setArg(1, host_output_cl);
     assert(error == CL_SUCCESS);
@@ -104,10 +104,10 @@ void CLImageProc::processImage(const sensor_msgs::msg::Image::SharedPtr msg)
     std::cout << int(image.data[200]) << " : " << int(pinned_host_input[200]) << std::endl;
 
     // Enqueue kernels
-    cl::NDRange global(width, height);
-    error = k_queue.enqueueNDRangeKernel(krnl_1, 0, global, cl::NullRange, NULL, &krnl1_event);
-    // krnl1_event.wait();
-    assert(error == CL_SUCCESS);
+    // cl::NDRange global(width, height);
+    // error = k_queue.enqueueNDRangeKernel(krnl_1, 0, global, cl::NullRange, NULL, &krnl1_event);
+    // // krnl1_event.wait();
+    // assert(error == CL_SUCCESS);
     cl::NDRange resize_global(resize_width, resize_height, 4);
     error = k_queue.enqueueNDRangeKernel(krnl_2, 0, resize_global, cl::NullRange, NULL, &krnl2_event);
     // krnl2_event.wait();
@@ -132,11 +132,11 @@ void CLImageProc::processImage(const sensor_msgs::msg::Image::SharedPtr msg)
     std::string new_line = std::to_string(get_time(input_event, 2)) + ","  + 
                            std::to_string(get_time(output_event, 2)) + ","+ std::to_string(duration.count()) + ",\n";
     std::ofstream myfile;
-    myfile.open("/root/DEVELOPMENT/opencl-test-codes/ros2-opencl/ros_ws/analyses/rectify_resize_cl.csv", std::ios::app);
+    myfile.open("/root/DEVELOPMENT/opencl-test-codes/ros2-opencl/ros_ws/analyses/resize_cl.csv", std::ios::app);
     myfile << new_line;
 
     // Save the image using OpenCV
-    std::string filename = "/root/DEVELOPMENT/opencl-test-codes/ros2-opencl/ros_ws/saved_images/2nodes_image_" + std::to_string(image_count_) + ".png";
+    std::string filename = "/root/DEVELOPMENT/opencl-test-codes/ros2-opencl/ros_ws/saved_images/resize_cl_image_" + std::to_string(image_count_) + ".png";
     cv::imwrite(filename, output_image);
     image_count_++;
 }
@@ -261,9 +261,9 @@ void CLImageProc::initializeOpenCL()
     {
         std::cout << "Program compiled succesfully!" << std::endl;
     }
-    cl::Kernel k1(program, "rectifyImageBuffer", &error);
-    assert(error == CL_SUCCESS);
-    krnl_1 = k1;
+    // cl::Kernel k1(program, "rectifyImageBuffer", &error);
+    // assert(error == CL_SUCCESS);
+    // krnl_1 = k1;
     cl::Kernel k2(program, "resizeImageBuffer", &error);
     assert(error == CL_SUCCESS);
     krnl_2 = k2;

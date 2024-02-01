@@ -55,13 +55,13 @@ void CLImageProc::processImage(const sensor_msgs::msg::Image::SharedPtr msg) {
     auto stop = std::chrono::high_resolution_clock::now();
     auto rect_duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
     start = std::chrono::high_resolution_clock::now();
-    cv::resize(rect, res, cv::Size(scale * width, scale * height), cv::INTER_LINEAR);
+    // cv::resize(rect, res, cv::Size(scale * width, scale * height), cv::INTER_LINEAR);
     stop = std::chrono::high_resolution_clock::now();
     auto res_duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
 
     // Save the image using OpenCV
-    std::string filename = "/root/DEVELOPMENT/opencl-test-codes/ros2-opencl/ros_ws/saved_images/cpu_rectify_resize_" + std::to_string(image_count_) + ".png";
-    cv::imwrite(filename, res);
+    std::string filename = "/root/DEVELOPMENT/opencl-test-codes/ros2-opencl/ros_ws/saved_images/recitfy_cpu_image_" + std::to_string(image_count_) + ".png";
+    cv::imwrite(filename, rect);
     image_count_++;
 
     stop = std::chrono::high_resolution_clock::now();
@@ -69,7 +69,7 @@ void CLImageProc::processImage(const sensor_msgs::msg::Image::SharedPtr msg) {
     std::string new_line = std::to_string(rect_duration.count()) + "," + std::to_string(res_duration.count()) + "," +
     std::to_string(duration.count()) + ",\n";
     std::ofstream myfile;
-    myfile.open("/root/DEVELOPMENT/opencl-test-codes/ros2-opencl/ros_ws/analyses/rectify_resize_cpu.csv", std::ios::app);
+    myfile.open("/root/DEVELOPMENT/opencl-test-codes/ros2-opencl/ros_ws/analyses/rectify_cpu.csv", std::ios::app);
     myfile << new_line;
 }
 

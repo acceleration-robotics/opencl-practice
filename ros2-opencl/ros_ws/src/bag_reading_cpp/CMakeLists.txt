@@ -15,25 +15,13 @@ find_package(image_geometry REQUIRED)
 find_package(OpenCV REQUIRED)
 find_package(cv_bridge REQUIRED)
 find_package(image_transport REQUIRED)
-find_package(OpenCL 2.2 EXACT REQUIRED)
+find_package(OpenCL REQUIRED)
 
 include_directories(include)
 
-# add_executable(image_bag_reader src/image_bag_reader.cpp)
-# ament_target_dependencies(
-#   image_bag_reader 
-#   rclcpp 
-#   rosbag2_cpp 
-#   rosbag2_storage
-#   cv_bridge
-#   image_transport
-#   sensor_msgs
-#   image_geometry
-#   OpenCL)
-
-add_executable(image_rectify src/image_rectify.cpp)
+add_executable(rectify_cl src/rectify_cl.cpp)
 ament_target_dependencies(
-    image_rectify 
+    rectify_cl 
     rclcpp 
     rosbag2_cpp 
     rosbag2_storage
@@ -43,21 +31,33 @@ ament_target_dependencies(
     image_geometry
     OpenCL)
 
-# add_executable(image_rectify_cpu src/image_rectify_cpu.cpp)
-# ament_target_dependencies(
-#     image_rectify_cpu
-#     rclcpp 
-#     rosbag2_cpp 
-#     rosbag2_storage
-#     cv_bridge
-#     image_transport
-#     sensor_msgs
-#     image_geometry
-#     OpenCL)
-
-add_executable(image_resize src/image_resize.cpp)
+add_executable(resize_cl src/resize_cl.cpp)
 ament_target_dependencies(
-    image_resize 
+    resize_cl 
+    rclcpp 
+    rosbag2_cpp 
+    rosbag2_storage
+    cv_bridge
+    image_transport
+    sensor_msgs
+    image_geometry
+    OpenCL)
+
+add_executable(rectify_cpu src/rectify_cpu.cpp)
+ament_target_dependencies(
+  rectify_cpu 
+  rclcpp 
+  rosbag2_cpp 
+  rosbag2_storage
+  cv_bridge
+  image_transport
+  sensor_msgs
+  image_geometry
+  OpenCL)
+
+add_executable(resize_cpu src/resize_cpu.cpp)
+ament_target_dependencies(
+    resize_cpu 
     rclcpp 
     rosbag2_cpp 
     rosbag2_storage
@@ -91,28 +91,18 @@ ament_target_dependencies(
     image_geometry
     OpenCL)
 
-add_executable(test_zerocopy src/zerocopy_test_onlyhost_endmap.cpp) # --works
-# add_executable(test_zerocopy src/zerocopy_test_onlyhost_endmap_resize.cpp) #-- works, resize
-# add_executable(test_zerocopy src/zerocopy_test.cpp)
-ament_target_dependencies(
-  test_zerocopy
-  OpenCL)
 
-# Link your executable with OpenCV
-# target_include_directories(image_bag_reader PRIVATE ${OpenCV_INCLUDE_DIRS})
-# target_link_libraries(image_bag_reader ${OpenCV_LIBRARIES} ${OpenCL_LIBRARY})
+target_include_directories(rectify_cl PRIVATE ${OpenCV_INCLUDE_DIRS})
+target_link_libraries(rectify_cl ${OpenCV_LIBRARIES} ${OpenCL_LIBRARY})
 
-target_include_directories(image_rectify PRIVATE ${OpenCV_INCLUDE_DIRS})
-target_link_libraries(image_rectify ${OpenCV_LIBRARIES} ${OpenCL_LIBRARY})
+target_include_directories(resize_cl PRIVATE ${OpenCV_INCLUDE_DIRS})
+target_link_libraries(resize_cl ${OpenCV_LIBRARIES} ${OpenCL_LIBRARY})
 
-target_include_directories(image_resize PRIVATE ${OpenCV_INCLUDE_DIRS})
-target_link_libraries(image_resize ${OpenCV_LIBRARIES} ${OpenCL_LIBRARY})
+target_include_directories(rectify_cpu PRIVATE ${OpenCV_INCLUDE_DIRS})
+target_link_libraries(rectify_cpu ${OpenCV_LIBRARIES} ${OpenCL_LIBRARY})
 
-target_include_directories(test_zerocopy PRIVATE ${OpenCV_INCLUDE_DIRS})
-target_link_libraries(test_zerocopy ${OpenCV_LIBRARIES} ${OpenCL_LIBRARY})
-
-# target_include_directories(image_rectify_cpu PRIVATE ${OpenCV_INCLUDE_DIRS})
-# target_link_libraries(image_rectify_cpu ${OpenCV_LIBRARIES} ${OpenCL_LIBRARY})
+target_include_directories(resize_cpu PRIVATE ${OpenCV_INCLUDE_DIRS})
+target_link_libraries(resize_cpu ${OpenCV_LIBRARIES} ${OpenCL_LIBRARY})
 
 target_include_directories(rectify_resize_cl PRIVATE ${OpenCV_INCLUDE_DIRS})
 target_link_libraries(rectify_resize_cl ${OpenCV_LIBRARIES} ${OpenCL_LIBRARY})
@@ -126,11 +116,12 @@ target_link_libraries(rectify_resize_cpu ${OpenCV_LIBRARIES} ${OpenCL_LIBRARY})
 #   )
 
 install(TARGETS
-  image_rectify
-  image_resize
-  test_zerocopy
+  rectify_cl
+  resize_cl
   rectify_resize_cl
   rectify_resize_cpu
+  rectify_cpu
+  resize_cpu
   DESTINATION lib/${PROJECT_NAME}
   )
 
