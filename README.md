@@ -64,3 +64,23 @@ make all
 lttng stop
 babeltrace ~/lttng-traces/vadd_session*
 ```
+
+### Running Image Processing examples
+1. Copy Image
+- On Ubuntu 22.04
+* On terminal
+```commandline
+cd ~/opencl-practice/image_processing
+make all
+./read_image <image_name> 
+```
+* <image_name> can be : 
+1. image1.png
+2. image2.png
+3. None : leave blank for default image ("lenna.png")
+* Compare outputs in input_images and output_images of same name
+
+* To cleanup : 
+```commandline
+make clean
+```
