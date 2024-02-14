@@ -1,0 +1,27 @@
+repositories:  
+  tracing/tracetools_acceleration:
+    type: git
+    url: https://github.com/ros-acceleration/tracetools_acceleration
+    version: humble
+
+  acceleration/adaptive_component:
+    type: git
+    url: https://github.com/ros-acceleration/adaptive_component
+    version: humble
+  acceleration/ament_hardware_acceleration:
+    type: git
+    url: https://github.com/ros-acceleration/ament_hardware_acceleration
+    version: humble
+  acceleration/ament_vitis:
+    type: git
+    url: https://github.com/ros-acceleration/ament_vitis
+    version: main
+  acceleration/colcon-hardware-acceleration:
+    type: git
+    url: https://github.com/colcon/colcon-hardware-acceleration
+    version: main
+  acceleration/ros2acceleration:
+    type: git
+    url: https://github.com/ros-acceleration/ros2acceleration
+    version: humble
+
