@@ -1,0 +1,9 @@
+[INFO] [launch]: All log files can be found below /root/.roslogs/2024-03-02-21-13-57-757407-qrb5165-rb5-198118
+[INFO] [launch]: Default logging verbosity is set to INFO
+[INFO] [python3-1]: process started with pid [198136]
+[python3-1] Setting ID method for filtering trace sets
+[python3-1] input  → [38;5;4;48;5;16mrobotperf_benchmarks:robotperf_image_input_cb_init (0.0 ms) [0m → [38;5;4;48;5;16mrobotperf_benchmarks:robotperf_image_input_cb_fini (0.325407 ms) [0m → [38;5;3;48;5;16mros2_image_pipeline:image_proc_resize_cb_init (22.989899 ms) [0m → [38;5;1;48;5;16mros2_image_pipeline:image_proc_resize_init (0.104632 ms) [0m → [38;5;1;48;5;16mros2_image_pipeline:image_proc_resize_fini (5.620513 ms) [0m → [38;5;3;48;5;16mros2_image_pipeline:image_proc_resize_cb_fini (3.760306 ms) [0m → [38;5;4;48;5;16mrobotperf_benchmarks:robotperf_image_output_cb_init (26.533389 ms) [0m → [38;5;4;48;5;16mrobotperf_benchmarks:robotperf_image_output_cb_fini (0.281138 ms) [0m[38;5;16;48;5;7mtotal  (59.615284 ms) [0m
+[python3-1]  |   | Benchmark Mean | Benchmark RMS | Benchmark Max  | Benchmark Min | Benchmark Median | Mean | RMS | Max | Min | Median | Total Execution Time | Samples | Lost Messages | 
+[python3-1]  | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | 
+[python3-1]  | grey-boxed | **39.9251 ms** | **41.4270 ms** | **59.6153 ms** | **19.7854 ms** | **36.5956 ms** | **39.9251 ms** | **41.4270 ms** | **59.6153 ms** | **19.7854 ms** | **36.5956 ms** | **2714.9041 ms** | 68 | 0.00 % | 
+[INFO] [python3-1]: process has finished cleanly [pid 198136]
