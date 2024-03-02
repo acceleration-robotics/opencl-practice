@@ -1,0 +1,9 @@
+[INFO] [launch]: All log files can be found below /root/.roslogs/2024-03-02-16-12-19-115096-qrb5165-rb5-185713
+[INFO] [launch]: Default logging verbosity is set to INFO
+[INFO] [python3-1]: process started with pid [185731]
+[python3-1] Setting ID method for filtering trace sets
+[python3-1] input  → [38;5;4;48;5;16mrobotperf_benchmarks:robotperf_image_input_cb_init (0.0 ms) [0m → [38;5;4;48;5;16mrobotperf_benchmarks:robotperf_image_input_cb_fini (1.174081 ms) [0m → [38;5;4;48;5;16mros2_image_pipeline:image_proc_rectify_cb_init (47.982957 ms) [0m → [38;5;4;48;5;16mros2_image_pipeline:image_proc_rectify_init (0.172859 ms) [0m → [38;5;4;48;5;16mros2_image_pipeline:image_proc_rectify_fini (18.679781 ms) [0m → [38;5;4;48;5;16mros2_image_pipeline:image_proc_rectify_cb_fini (14.720935 ms) [0m[38;5;16;48;5;7mtotal  (82.730613 ms) [0m
+[python3-1]  |   | Benchmark Mean | Benchmark RMS | Benchmark Max  | Benchmark Min | Benchmark Median | Mean | RMS | Max | Min | Median | Total Execution Time | Samples | Lost Messages | 
+[python3-1]  | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | 
+[python3-1]  | grey-boxed | **38.9777 ms** | **41.0983 ms** | **82.7306 ms** | **22.2940 ms** | **38.3668 ms** | **38.9777 ms** | **41.0983 ms** | **82.7306 ms** | **22.2940 ms** | **38.3668 ms** | **1364.2208 ms** | 35 | 0.00 % | 
+[INFO] [python3-1]: process has finished cleanly [pid 185731]

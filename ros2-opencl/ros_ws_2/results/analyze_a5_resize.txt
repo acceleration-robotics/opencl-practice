@@ -1,0 +1,22 @@
+[INFO] [launch]: All log files can be found below /root/.roslogs/2024-03-02-05-21-12-192259-qrb5165-rb5-164968
+[INFO] [launch]: Default logging verbosity is set to INFO
+[INFO] [python3-1]: process started with pid [164986]
+[python3-1] Setting ID method for filtering trace sets
+[python3-1] [38;5;orangemMessage with id: 579.25 not fully propagated (missing number), discarding chain - ['robotperf_benchmarks:robotperf_image_input_cb_init', 'robotperf_benchmarks:robotperf_image_input_cb_fini'][0m
+[python3-1] input  → [38;5;4;48;5;16mrobotperf_benchmarks:robotperf_image_input_cb_init (0.0 ms) [0m → [38;5;4;48;5;16mrobotperf_benchmarks:robotperf_image_input_cb_fini (8.525121 ms) [0m → [38;5;3;48;5;16mros2_image_pipeline:image_proc_resize_cb_init (10.494857 ms) [0m → [38;5;1;48;5;16mros2_image_pipeline:image_proc_resize_init (0.891693 ms) [0m → [38;5;1;48;5;16mros2_image_pipeline:image_proc_resize_fini (9.659725 ms) [0m → [38;5;3;48;5;16mros2_image_pipeline:image_proc_resize_cb_fini (22.4904 ms) [0m → [38;5;4;48;5;16mrobotperf_benchmarks:robotperf_image_output_cb_init (25.85395 ms) [0m → [38;5;4;48;5;16mrobotperf_benchmarks:robotperf_image_output_cb_fini (0.277076 ms) [0m[38;5;16;48;5;7mtotal  (78.192822 ms) [0m
+[python3-1]  |   | Benchmark Mean | Benchmark RMS | Benchmark Max  | Benchmark Min | Benchmark Median | Mean | RMS | Max | Min | Median | Total Execution Time | Samples | Lost Messages | 
+[python3-1]  | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | 
+[python3-1]  | grey-boxed | **25.8991 ms** | **27.8110 ms** | **78.1928 ms** | **16.1426 ms** | **23.9261 ms** | **25.8991 ms** | **27.8110 ms** | **78.1928 ms** | **16.1426 ms** | **23.9261 ms** | **1657.5408 ms** | 64 | 1.56 % | 
+[INFO] [python3-1]: process has finished cleanly [pid 164986]
+[INFO] [launch]: All log files can be found below /root/.roslogs/2024-03-02-16-30-31-985200-qrb5165-rb5-186780
+[INFO] [launch]: Default logging verbosity is set to INFO
+[INFO] [python3-1]: process started with pid [186798]
+[python3-1] Setting ID method for filtering trace sets
+[python3-1] [38;5;orangemMessage with id: 579.316 not fully propagated (missing number), discarding chain - ['robotperf_benchmarks:robotperf_image_input_cb_init', 'robotperf_benchmarks:robotperf_image_input_cb_fini'][0m
+[python3-1] [38;5;orangemMessage with id: 580.45 not fully propagated (missing number), discarding chain - ['robotperf_benchmarks:robotperf_image_input_cb_init', 'robotperf_benchmarks:robotperf_image_input_cb_fini'][0m
+[python3-1] [38;5;orangemMessage with id: 580.85 not fully propagated (missing number), discarding chain - ['robotperf_benchmarks:robotperf_image_input_cb_init', 'robotperf_benchmarks:robotperf_image_input_cb_fini'][0m
+[python3-1] input  → [38;5;4;48;5;16mrobotperf_benchmarks:robotperf_image_input_cb_init (0.0 ms) [0m → [38;5;4;48;5;16mrobotperf_benchmarks:robotperf_image_input_cb_fini (1.444547 ms) [0m → [38;5;4;48;5;16mros2_image_pipeline:image_proc_resize_cb_init (60.085994 ms) [0m → [38;5;4;48;5;16mros2_image_pipeline:image_proc_resize_init (0.124528 ms) [0m → [38;5;4;48;5;16mros2_image_pipeline:image_proc_resize_fini (8.770041 ms) [0m → [38;5;4;48;5;16mros2_image_pipeline:image_proc_resize_cb_fini (6.57322 ms) [0m[38;5;16;48;5;7mtotal  (76.99833 ms) [0m
+[python3-1]  |   | Benchmark Mean | Benchmark RMS | Benchmark Max  | Benchmark Min | Benchmark Median | Mean | RMS | Max | Min | Median | Total Execution Time | Samples | Lost Messages | 
+[python3-1]  | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | 
+[python3-1]  | grey-boxed | **28.7540 ms** | **31.2265 ms** | **76.9983 ms** | **15.1749 ms** | **28.6943 ms** | **28.7540 ms** | **31.2265 ms** | **76.9983 ms** | **15.1749 ms** | **28.6943 ms** | **1581.4683 ms** | 55 | 5.45 % | 
+[INFO] [python3-1]: process has finished cleanly [pid 186798]
